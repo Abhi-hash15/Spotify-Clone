@@ -164,14 +164,17 @@ async function main() {
     });
 
     prevBtn.addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").pop());
+        const currentTrack = decodeURIComponent(currentSong.src.split("/").pop());
+        const index = songs.findIndex(song => song === currentTrack);
         if (index > 0) playMusic(songs[index - 1]);
     });
 
     nextBtn.addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").pop());
-        if (index < songs.length - 1) playMusic(songs[index + 1]);
+        const currentTrack = decodeURIComponent(currentSong.src.split("/").pop());
+        const index = songs.findIndex(song => song === currentTrack);
+        if (index !== -1 && index < songs.length - 1) playMusic(songs[index + 1]);
     });
+
 
     // Time updates
     currentSong.addEventListener("timeupdate", () => {
